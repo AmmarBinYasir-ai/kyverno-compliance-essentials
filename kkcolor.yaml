@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kkcolor-deployment
+  labels:
+    app: kkcolor
+    team: backend  
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kkcolor
+  template:
+    metadata:
+      labels:
+        app: kkcolor
+    spec:
+      containers:
+      - name: kkcolor-container
+        image: kodekloud/webapp-color:v1   ##modified line
+        ports:
+        - containerPort: 80

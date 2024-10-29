@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-repo
+spec:
+  rules:
+    - name: check-image-repo
+      match:
+        resources:
+          kinds:
+            - Pod
+            - Deployment
+      validate:
+        message: "Images must be pulled from the kodekloud repository."
+        pattern:
+          spec:
+            containers:
+              - image: "?*kodekloud/*" # Match images from kodekloud
+    - name: report-non-kodekloud-images
+      match:
+        resources:
+          kinds:
+            - Pod
+            - Deployment
+      validate:
+        message: "Image from a non-kodekloud repository is being deployed."
+        pattern:
+          spec:
+            containers:
+              - image: "!*kodekloud/*" # Ensure it does not match kodekloud images
