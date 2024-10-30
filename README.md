@@ -69,6 +69,9 @@ cd kyverno-compliance-essentials
 # Ensure Kyverno is installed on your Kubernetes cluster
 kubectl create -f https://raw.githubusercontent.com/kyverno/kyverno/main/definitions/release/install.yaml
 
+#Ensure that the pods are running correctly
+kubectl get pods -n kyverno
+
 # Apply the policies to your cluster
 kubectl apply -f image-repo-policy.yaml
 kubectl apply -f webapp.yaml
